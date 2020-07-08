@@ -2,7 +2,7 @@
   "name": "gem-puzzle",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,6 +16,18 @@
   ],
   "author": "Denis Denisov <mrdenisov91@gmail.com>",
   "license": "ISC",
+  "dependencies": {
+    "htmlhint": "^0.11.0"
+  },
+  "devDependencies": {
+    "csscomb": "^4.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "stylelint": "^13.1.0",
+    "stylelint-config-htmlacademy": "^0.1.4",
+    "stylelint-config-standard": "^20.0.0"
+  },
   "bugs": {
     "url": "https://github.com/dendenisov/gem-puzzle/issues"
   },
