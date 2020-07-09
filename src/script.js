@@ -1,7 +1,17 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable radix */
 /* eslint-disable no-plusplus */
 /* eslint-disable func-names */
 class Fifteen {
+  constructor() {
+    this.leaderArray = JSON.parse(localStorage.getItem('leaderArray')) || [];
+    this.countMove = +(localStorage.getItem('countMove')) || 0;
+    this.size = +(localStorage.getItem('size')) || 4;
+    this.gameFieldArr = JSON.parse(localStorage.getItem('gameFieldArr')) || [];
+    this.min = JSON.parse(localStorage.getItem('min')) || 0;
+    this.sec = JSON.parse(localStorage.getItem('sec')) || 0;
+  }
+
   createDOM() {
     this.box = document.createElement('div');
     this.box.setAttribute('id', 'box');
@@ -135,6 +145,21 @@ class Fifteen {
     this.gameFieldArr = [];
     this.changeResize();
     this.createGame(size);
+  }
+
+  changeSizeListener(event) {
+    if (event.target.tagName !== 'SPAN') {
+      return;
+    }
+    const div = document.querySelector('.k1');
+    const widthDiv = parseFloat(getComputedStyle(div).width);
+    this.box.style.width = `${this.size * widthDiv + 2}px`;
+    this.box.style.height = `${this.size * widthDiv}px`;
+    const target = parseInt(event.target.textContent);
+    if (this.size === target) {
+      return;
+    }
+    this.changeSizeField(target);
   }
 
   addListener() {
