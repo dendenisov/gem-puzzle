@@ -228,6 +228,7 @@ class Fifteen {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   getTransform(div) {
     const arr = getComputedStyle(div).transform.split(',');
     const transformY = parseInt(arr[arr.length - 1]);
@@ -273,6 +274,40 @@ class Fifteen {
       squareDiv.style.transform = `translate(${transformX + width}px, ${transformY}px)`;
       this.swap(space, square);
     }
+  }
+
+  swap(space, square) {
+    const a = this.gameFieldArr[space - 1];
+    this.gameFieldArr[space - 1] = this.gameFieldArr[square - 1];
+    this.gameFieldArr[square - 1] = a;
+    this.countMove += 1;
+    this.count.textContent = `Count: ${this.countMove}`;
+    this.winGame();
+  }
+
+  saveData() {
+    localStorage.setItem('countMove', this.countMove);
+    localStorage.setItem('min', this.min);
+    localStorage.setItem('sec', this.sec);
+    localStorage.setItem('size', this.size);
+    localStorage.setItem('gameFieldArr', JSON.stringify(this.gameFieldArr));
+    setTimeout(() => alert('Your game has been saved!', 1000));
+  }
+
+  shuffleArr() {
+    this.countMove = 0;
+    this.stopGame.style.display = 'none';
+    console.log(this.min, this.sec);
+    this.min = 0;
+    this.sec = 0;
+    this.count.textContent = `Count: ${this.countMove}`;
+    this.timer.textContent = '00:00';
+    this.gameFieldArr.sort(() => Math.random() - 0.5);
+    this.draw();
+    if (this.timerId) {
+      return;
+    }
+    this.timerId = setInterval(() => this.tick(), 1000);
   }
 }
 window.onload = function () {
