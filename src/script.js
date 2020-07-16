@@ -90,6 +90,7 @@ class Fifteen {
     this.timer = document.createElement('div');
     this.timer.classList.add('infoNum');
     this.timer.textContent = 'TIME';
+    this.timerId = setInterval(() => this.tick(), 1000);
     document.body.prepend(this.timer);
 
     this.leaderboardTable = document.createElement('div');
@@ -100,6 +101,24 @@ class Fifteen {
     this.buttonLeadereOk.setAttribute('id', 'buttonLeadereOk');
     this.buttonLeadereOk.classList.add('btnMessage');
     document.body.append(this.buttonLeadereOk);
+  }
+
+  tick() {
+    this.sec++;
+    if (this.sec >= 60) {
+      this.min++;
+      this.sec -= 60;
+    } if (this.min < 10) {
+      if (this.sec < 10) {
+        this.timer.textContent = `0${this.min}:0${this.sec}`;
+      } else {
+        this.timer.textContent = `0${this.min}:${this.sec}`;
+      }
+    } else if (this.sec < 10) {
+      this.timer.textContent = `${+this.min}:0${this.sec}`;
+    } else {
+      this.timer.textContent = `${+this.min}:${this.sec}`;
+    }
   }
 
   createGame(size) {
