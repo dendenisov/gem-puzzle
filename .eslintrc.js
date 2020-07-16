@@ -10,6 +10,7 @@ module.exports = {
       'no-restricted-syntax': ['error', 'WithStatement', "BinaryExpression[operator='in']"],
       'import/extensions': [2, 'ignorePackages', { js: 'always' }],
       'object-curly-newline': ['error', { multiline: true }],
+      
     },
   };
   

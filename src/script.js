@@ -205,6 +205,75 @@ class Fifteen {
     });
     window.addEventListener('resize', () => this.changeResize());
   }
+
+  changeResize() {
+    const widthWindow = document.documentElement.clientWidth;
+    const div = document.querySelector('.k1');
+    const widthDiv = parseFloat(getComputedStyle(div).width);
+    if (widthWindow > '900') {
+      this.box.style.width = `${this.size * 100 + 2}px`;
+      this.box.style.height = `${this.size * 100}px`;
+    }
+    if (widthWindow < '900') {
+      this.box.style.width = `${this.size * 75 + 2}px`;
+      this.box.style.height = `${this.size * 75}px`;
+    }
+    if (widthWindow < '600') {
+      this.box.style.width = `${this.size * 30 + 2}px`;
+      this.box.style.height = `${this.size * 30}px`;
+    }
+    if (widthWindow < '300') {
+      this.box.style.width = `${this.size * 25 + 2}px`;
+      this.box.style.height = `${this.size * 25}px`;
+    }
+  }
+
+  getTransform(div) {
+    const arr = getComputedStyle(div).transform.split(',');
+    const transformY = parseInt(arr[arr.length - 1]);
+    const transformX = parseInt(arr[arr.length - 2]);
+    const width = parseFloat(getComputedStyle(div).width);
+    return [transformY, transformX, width];
+  }
+
+  movePuzzle(event) {
+    const index = event.textContent;
+    const space = this.gameFieldArr.indexOf('space') + 1;
+    const square = this.gameFieldArr.indexOf(+index) + 1;
+    const spaceDiv = document.querySelector(`.kspace`);
+    const squareDiv = document.querySelector(`.k${index}`);
+    if (space === square + this.size) {
+      let [transformY, transformX, width] = this.getTransform(spaceDiv);
+      spaceDiv.style.transform = `translate(${transformX}px, ${transformY - width}px)`;
+      [transformY, transformX, width] = this.getTransform(squareDiv);
+      squareDiv.style.transform = `translate(${transformX}px, ${transformY + width}px)`;
+      this.swap(space, square);
+    } else if (space === square - this.size) {
+      let [transformY, transformX, width] = this.getTransform(spaceDiv);
+      spaceDiv.style.transform = `translate(${transformX}px, ${transformY + width}px)`;
+      [transformY, transformX, width] = this.getTransform(squareDiv);
+      squareDiv.style.transform = `translate(${transformX}px, ${transformY - width}px)`;
+      this.swap(space, square);
+    } else if (space === square - 1) {
+      if ((square - 1) % this.size === 0) {
+        return;
+      }
+      let [transformY, transformX, width] = this.getTransform(spaceDiv);
+      spaceDiv.style.transform = `translate(${transformX + width}px, ${transformY}px)`;
+      [transformY, transformX, width] = this.getTransform(squareDiv);
+      squareDiv.style.transform = `translate(${transformX - width}px, ${transformY}px)`;
+      this.swap(space, square);
+    } else if (space === square + 1) {
+      if ((space - 1) % this.size === 0) {
+        return;
+      }
+      let [transformY, transformX, width] = this.getTransform(spaceDiv);
+      spaceDiv.style.transform = `translate(${transformX - width}px, ${transformY}px)`;
+      [transformY, transformX, width] = this.getTransform(squareDiv);
+      squareDiv.style.transform = `translate(${transformX + width}px, ${transformY}px)`;
+      this.swap(space, square);
+    }
+  }
 }
 window.onload = function () {
   const game = new Fifteen();
