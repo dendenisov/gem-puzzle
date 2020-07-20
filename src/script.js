@@ -1,7 +1,11 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable func-names */
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
+/* eslint-disable no-unused-vars */
 /* eslint-disable radix */
 /* eslint-disable no-plusplus */
-/* eslint-disable func-names */
+
 class Fifteen {
   constructor() {
     this.leaderArray = JSON.parse(localStorage.getItem('leaderArray')) || [];
@@ -308,6 +312,20 @@ class Fifteen {
       return;
     }
     this.timerId = setInterval(() => this.tick(), 1000);
+  }
+
+  winGame() {
+    for (let i = 0; i < this.gameFieldArr.length - 2; i++) {
+      if (!(this.gameFieldArr[i] < this.gameFieldArr[i + 1])) {
+        return;
+      }
+    }
+    clearInterval(this.timerId);
+    this.timerId = 0;
+    setTimeout(() => this.congratulation.style.display = 'block', 200);
+    this.messageBlock.innerHTML = `<b>YOU WON!</b> <br> Moves: ${this.countMove}<br> Time: ${this.timer.textContent}`;
+    this.leaderArray.push(`${this.countMove} ${this.timer.textContent}`);
+    this.shuffleArr();
   }
 }
 window.onload = function () {
