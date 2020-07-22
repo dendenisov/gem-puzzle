@@ -1,11 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable func-names */
-/* eslint-disable no-console */
-/* eslint-disable no-alert */
-/* eslint-disable no-unused-vars */
-/* eslint-disable radix */
-/* eslint-disable no-plusplus */
-
 class Fifteen {
   constructor() {
     this.leaderArray = JSON.parse(localStorage.getItem('leaderArray')) || [];
@@ -322,10 +314,26 @@ class Fifteen {
     }
     clearInterval(this.timerId);
     this.timerId = 0;
+    // eslint-disable-next-line no-return-assign
     setTimeout(() => this.congratulation.style.display = 'block', 200);
     this.messageBlock.innerHTML = `<b>YOU WON!</b> <br> Moves: ${this.countMove}<br> Time: ${this.timer.textContent}`;
     this.leaderArray.push(`${this.countMove} ${this.timer.textContent}`);
     this.shuffleArr();
+  }
+
+  leaderboardShow() {
+    this.leaderboardTable.style.display = 'block';
+    this.buttonLeadereOk.style.display = 'block';
+    this.writeOnLeaderboadrd();
+  }
+
+  writeOnLeaderboadrd() {
+    this.leaderboardTable.innerHTML = 'TOP SCORES<br><br><br>';
+    this.leaderArray.sort((a, b) => parseInt(a) - parseInt(b));
+    for (let z = 0; z < this.leaderArray.length; z++) {
+      this.leaderboardTable.innerHTML += `${z + 1}.  MOVES: ${parseInt(this.leaderArray[z])} | TIME: ${(this.leaderArray[0].substr(-5, 5))}<br>`;
+    }
+    localStorage.setItem('leaderArray', JSON.stringify(this.leaderArray));
   }
 }
 window.onload = function () {
