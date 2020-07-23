@@ -132,26 +132,6 @@ class Fifteen {
     this.draw();
   }
 
-  draw() {
-    this.box.innerHTML = '';
-    for (let i = 0; i < this.gameFieldArr.length; i++) {
-      const newElement = document.createElement('div');
-      newElement.textContent = this.gameFieldArr[i];
-      newElement.classList.add(`k${this.gameFieldArr[i]}`);
-      newElement.classList.add('box');
-      newElement.setAttribute('draggable', 'true');
-      this.box.append(newElement);
-    }
-    document.querySelector('.kspace').classList.add('visibility');
-    document.querySelector('.kspace').addEventListener('dragover', (event) => {
-      event.preventDefault();
-    });
-    document.querySelector('.kspace').addEventListener('drop', () => {
-      this.movePuzzle(this.dropItem);
-    });
-    this.changeResize();
-  }
-
   changeSizeField(size) {
     clearInterval(this.timerId);
     this.timerId = 0;
@@ -175,6 +155,26 @@ class Fifteen {
       return;
     }
     this.changeSizeField(target);
+  }
+
+  draw() {
+    this.box.innerHTML = '';
+    for (let i = 0; i < this.gameFieldArr.length; i++) {
+      const newElement = document.createElement('div');
+      newElement.textContent = this.gameFieldArr[i];
+      newElement.classList.add(`k${this.gameFieldArr[i]}`);
+      newElement.classList.add('box');
+      newElement.setAttribute('draggable', 'true');
+      this.box.append(newElement);
+    }
+    document.querySelector('.kspace').classList.add('visibility');
+    document.querySelector('.kspace').addEventListener('dragover', (event) => {
+      event.preventDefault();
+    });
+    document.querySelector('.kspace').addEventListener('drop', () => {
+      this.movePuzzle(this.dropItem);
+    });
+    this.changeResize();
   }
 
   addListener() {
@@ -224,7 +224,6 @@ class Fifteen {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   getTransform(div) {
     const arr = getComputedStyle(div).transform.split(',');
     const transformY = parseInt(arr[arr.length - 1]);
