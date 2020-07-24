@@ -1,0 +1,29 @@
+{
+  "name": "gem-puzzle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dendenisov/gem-puzzle.git"
+  },
+  "keywords": [
+    "gem",
+    "puzzle"
+  ],
+  "author": "Denis Denisov <mrdenisov91@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "htmlhint": "^0.11.0"
+  },
+  "devDependencies": {
+    "csscomb": "^4.3.0"
+  },
+  "bugs": {
+    "url": "https://github.com/dendenisov/gem-puzzle/issues"
+  },
+  "homepage": "https://github.com/dendenisov/gem-puzzle#readme"
+}
