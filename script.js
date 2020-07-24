@@ -16,7 +16,7 @@ class Fifteen {
     this.stopGame.setAttribute('id', 'stopGame');
     document.body.append(this.stopGame);
     this.stopGameText = document.createElement('p');
-    this.stopGameText.textContent = 'click «mix and start» to start game';
+    this.stopGameText.textContent = 'click "mix and start" to start game';
     this.stopGame.append(this.stopGameText);
 
     this.congratulation = document.createElement('div');
